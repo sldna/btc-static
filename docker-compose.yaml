@@ -1,0 +1,27 @@
+
+services:
+  tor-proxy:
+    build:
+      context: ./tor-proxy
+    container_name: tor-proxy
+    restart: unless-stopped
+    networks:
+      - bitcoin-net
+    expose:
+      - "9050"  # nur intern, wird nicht gepublished
+
+  bitcoin-core:
+    build:
+      context: ./bitcoin-core
+    container_name: bitcoin-core
+    restart: unless-stopped
+    depends_on:
+      - tor-proxy
+    networks:
+      - bitcoin-net
+    volumes:
+      - ./data:/data
+    
+networks:
+  bitcoin-net:
+    driver: bridge
