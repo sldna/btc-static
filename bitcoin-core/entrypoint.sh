@@ -18,6 +18,8 @@ if [ ! -f "$CONFIG_FILE" ]; then
 server=1
 daemon=0
 txindex=1
+proxy=tor-proxy:9050
+onlynet=onion
 rpcbind=0.0.0.0
 rpcallowip=0.0.0.0/0
 rpcport=$RPC_PORT

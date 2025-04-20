@@ -38,7 +38,6 @@ LABEL org.opencontainers.image.title="Bitcoin Core"
 LABEL org.opencontainers.image.description="Minimal Bitcoin Core container with automatic config, rpcauth, healthcheck, and watchdog"
 LABEL org.opencontainers.image.version="28.1"
 LABEL org.opencontainers.image.url="https://github.com/bitcoin/bitcoin"
-LABEL org.opencontainers.image.authors="Bitcoin Core Maintainers <maintainers@bitcoin.org>"
 LABEL org.opencontainers.image.license="MIT"
 LABEL org.opencontainers.image.release="v1.0"
 LABEL org.opencontainers.image.authors="Sven Lidynia <sven@lidynia.de>"
@@ -47,11 +46,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bash python3 curl ca-certificates libevent-dev gosu \
     && rm -rf /var/lib/apt/lists/*
 
+#RUN addgroup --gid 1000 bitcoin && adduser --uid 1000 --gid 1000 --disabled-password --gecos "" bitcoin
+
+
 # Copy the built Bitcoin Core from the builder stage
 COPY --from=builder /opt/bitcoin /opt/bitcoin
 ENV PATH="/opt/bitcoin/bin:$PATH"
 
 WORKDIR /data
+VOLUME ["/data"]
+
 
 # Copy entrypoint and watchdog scripts
 COPY entrypoint.sh /entrypoint.sh
