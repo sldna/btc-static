@@ -1,9 +1,8 @@
-# btc-node
-This project is a bitcoin full node for Docker.
+# btc-static
+Static linked Bitcoind Container.
 
-## bitcoin-core
-The bitcoin-core folder contains the dockerfile to create the bitcoin core component.
+## How to use?
 
-## tor-proxy
-This folder contains a dockerfile for the tor proxy
-
+```
+docker pull ghcr.io/sldna/btc-static:latest
+```
